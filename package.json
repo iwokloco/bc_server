@@ -8,8 +8,9 @@
   "dependencies": {
     "body-parser": "^1.17.2",
     "express": "3.2.6",
-    "nodemailer": "4.0.1",
+    "express-fileupload": "^0.4.0",
     "mysql": "2.14.1",
+    "nodemailer": "4.0.1",
     "pug": "^2.0.0-rc.2"
   }
 }

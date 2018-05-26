@@ -1,14 +1,14 @@
 /**
  * Created by iwokloco on 14/03/2018.
  */
-var app = require('../app');
+var db = require('../db');
 var error = require('../error');
 
 const SQL_SELECT_LANGUAGES = "select * from languages";
 const TAG_getLanguages = "getLanguages";
 function getLanguages(req, res){
     var conn = null;
-    app.dbConnect(TAG_getLanguages, res, onGetConnection);
+    db.connect(TAG_getLanguages, res, onGetConnection);
 
     function onGetConnection(err, connection){
         if(err)
