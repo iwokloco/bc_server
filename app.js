@@ -1,4 +1,3 @@
-var CONFIG = null;
 var express = require('express')
   , http = require('http')
   , path = require('path')
@@ -11,9 +10,6 @@ var error = require('./error');
 var mysql = require('mysql');
 var pug = require('pug');
 
-var cache = new Array();
-
-// all environments
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
@@ -38,7 +34,6 @@ app.use(function(req, res, next) {
   next();
 });
 
-// development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
@@ -50,21 +45,6 @@ fs.readFile(__dirname + "/bestcms.conf", 'utf8', function(err, contents) {
 function initServer(config){
 	http.createServer(app).listen(config.port, function(){
 		console.log('<-- Server started -->');
-		//pool =  mysql.createPool(config.db);
 		db.init(config.db);
 	});
 }
-
-/****************** EXPORT THIS TO db.js */
-var pool = null;
-
-function dbConnect(tag, res, onGetConnection){
-	try{
-		pool.getConnection(onGetConnection);
-	}catch(ex){
-		console.log(ex);
-		res.json({error: ex, type: error.ERROR_MYSQL_POOL, func: tag});
-	}
-}
-
-exports.dbConnect = dbConnect;
