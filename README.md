@@ -1,6 +1,6 @@
 # BestCMS
 Create configuration file bestcms.conf with this format:
-
+```
 {
 	"port": 1702,
 	"db":	{
@@ -11,7 +11,7 @@ Create configuration file bestcms.conf with this format:
 		  "multipleStatements" : true
 		}
 }
-
+```
 ## Start
 
 ```
@@ -26,7 +26,7 @@ node app.js
 ### Tools
 
 ## Testing ideas
-
+```
 {
 	[
 		test: { name: "Insert"
@@ -37,7 +37,14 @@ node app.js
 		}
 	]
 }
-
+```
 ## Doc
+
+```
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+```
+
+# TODO
+
+https://www.npmjs.com/package/pre-push

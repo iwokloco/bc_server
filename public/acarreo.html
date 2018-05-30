@@ -1,0 +1,29 @@
+<script>
+window.onload = function(){
+	getTheNumber(1879,637);	
+}
+
+function getTheNumber(a, b){
+	getCiphers(a);
+}
+
+function getCiphers(n){
+	var res = n, cipher = 0, x = 1;
+	
+Number(100).toFixed(2)
+
+	while(res!=0){
+		var aux_res = res/10;
+		console.log("aux_res = " + aux_res);
+		console.log("Math.trunc(aux_res) = " + Math.trunc(aux_res));
+		console.log("resta = " + Number(Number(aux_res).toFixed(1)-Number(Math.trunc(aux_res)).toFixed(1) ).toFixed(1) );
+		console.log("Math.trunc(aux_res))*10 = " + (aux_res - Math.trunc(aux_res))*10 );
+		var cipher_extracted = Math.trunc((aux_res - Math.trunc(aux_res))*10);
+		res = Math.trunc(res/10);
+		cipher++;
+		console.log(res);
+		console.log(cipher_extracted);
+	}
+	console.log(cipher);
+}
+</script>

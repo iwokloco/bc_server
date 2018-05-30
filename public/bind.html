@@ -1,0 +1,81 @@
+<body>
+<div id="root">
+	<div id="bt">
+		button
+	</div>
+	<div id="text">
+	
+	</div>
+</div>
+</body>
+<script>
+	var root;
+	window.onload = onLoadPage;
+
+	var qstore;
+
+	function onLoadPage(){
+
+		qstore = new quantum(state);
+		root = document.getElementById("root");
+
+		// var pepe = new Persona("Pepe","Rubianes","80");
+		// showNameAndLastname.bind(pepe)();
+		var bt = document.getElementById("bt");
+		bt.onclick = function(){
+			qstore.setState("products", {value: "new"});
+		};
+
+		var text = document.getElementById("text");
+
+		qstore.storeSuscription("products", text, function(element, newState){
+			element.innerHTML = newState.value;
+		});
+	} 
+
+
+	var state = {
+		products: {value: "initial"},
+		key2: {param: 1}
+	};
+
+
+	var quantum = function(initialState){
+		this.state = Object.assign({}, initialState);
+		for(let i in this.state)
+			this.state[i].$subscripters = [];
+	}
+
+	quantum.prototype.storeSuscription = function(key, element, onchange){
+		if(this.state.hasOwnProperty(key))
+			this.state[key].$subscripters.push( { element: element, onchange: onchange } );
+	}
+
+	quantum.prototype.setState = function(key, newState){
+		if(this.state.hasOwnProperty(key) && this.state[key].$subscripters.length>0){
+			console.log("here");
+			for(let i in this.state[key].$subscripters){
+				console.log(i);
+				this.state[key].$subscripters[i].onchange(
+					this.state[key].$subscripters[i].element,
+					this.state[key]);
+			}
+		}
+	}
+
+
+	function Persona(firstname, lastname, age){
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.age = age;
+	}
+
+	function showNameAndLastname(){
+		root.innerHTML = this.firstname;
+		root.innerHTML += this.firstname;
+		root.innerHTML += this.firstname;
+
+	}
+
+
+</script>

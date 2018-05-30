@@ -1,0 +1,57 @@
+<body>
+<div id="root">
+	<div id="bt">
+		button
+	</div>
+	<div id="text">
+	
+	</div>
+</div>
+</body>
+<script>
+	window.onload = onLoadPage;
+	var qstore;
+	var state = {
+		products: {count: 0},
+		key2: {param: 1}
+	};
+
+	function onLoadPage(){
+		qstore = new quantum(state);
+
+		document.getElementById("bt").onclick = function(){
+			console.log(qstore.state.products.count);
+			let newCount = qstore.state.products.count + 1;
+			qstore.setState("products", {count: newCount});
+		};
+
+		qstore.subscribe("products", document.getElementById("text"), function(element, newState){
+			element.innerHTML = newState.count;
+		});
+	} 
+
+
+
+	var quantum = function(initialState){
+		this.state = Object.assign({}, initialState);
+		for(let i in this.state)
+			this.state[i].$subscripters = [];
+	}
+	quantum.prototype.subscribe = function(key, element, onchange){
+		if(this.state.hasOwnProperty(key))
+			this.state[key].$subscripters.push( { element: element, onchange: onchange } );
+	}
+	quantum.prototype.setState = function(key, newState){
+		if(this.state.hasOwnProperty(key)){
+			this.state[key] = Object.assign(this.state[key], newState);
+			if(this.state[key].$subscripters.length>0){
+				for(let i in this.state[key].$subscripters){
+					this.state[key].$subscripters[i].onchange(
+						this.state[key].$subscripters[i].element,
+						this.state[key]);
+				}
+			}
+		}
+	}
+
+</script>
