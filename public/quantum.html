@@ -16,6 +16,62 @@
 		key2: {param: 1}
 	};
 
+
+	// Dos tipos de atributos, numéricos o categóricos
+	// Tenemos el espacio de atributos y la similitud como una distancia
+
+	// Es necesario un criterio de similitud para poder agrupar objetos
+
+	var columns = ["Client", "Centre", "Horari", "Act1", "Act2", "Prof", "Renda", "Edat", "Sexe"];
+	// Observation matrix
+	var data = [
+		[1, 1, "Matí", "Ioga", "Stretch", "Jubilat", 3000000, 68, "Dona"],
+		[2, 3, "Tarda", "TBC", "TBC", "Executiu", 1200000, 40, "Home"],
+		[3, 2, "Tarda", "Stretch", "Steps", "Executiu", 9000000, 36, "Home"],
+		[4, 3, "Tarda", "TBC", "Steps", "Executiu", 9000000, 46, "Home"],
+		[5, 1, "Matí", "Aeròbic", "Steps", "Adm", 4000000, 30, "Dona"]
+	];
+
+	// Esta función obtiene una lista de grupos a partir de la observation matrix
+	// La unión de los grupos forma el conjunto original.
+	// Un objeto solamente puede pertenecer a un grupo.
+	// Los grupos que resetan este criterio se llaman particiones.
+	function getClusterFromData(data) {
+
+	}
+
+	// Hay dos maneras de describir la lista de grupos:
+	// 1. Descripción extensiva
+	//		Un grupo queda definido por la enumeración de los objetos que pertenecen a este
+	// 2. Descripción intensiva
+	//		Se realiza una abstracción de los objetos concretos que froman el grupo
+	//		y se describen de manera sintética.
+
+	// Necesitamos un criterio de similitud S(Oi, Oj)
+	// De forma que todo objeto Ox que pertenezca a un grupo G 
+	// tenga una similitud Sk con los objetos de su grupo
+	// mayor que con los objetos de otro grupo
+
+	// S(Ox, O su grupo) > S(Ox, O otro grupo)
+
+	// Los criterios son: Espacio, distancia y semblanza
+	// La distancia entre objetos permite establecer el concepto de objetos vecinos
+	// Un vecino es de un objeto determinado es el objeto que se encuentra a una distancia
+	// muy cercana en el espacio de clasificación.
+
+	// Para establecer el concepto de distancia cercana debemos establecer un
+	// llindar razonable ( de manera dinámica )
+
+// Para formalizar el concepto de similitud es útil visualizar el problema 
+// dentro de un espacio con tantas dimensiones como atributos hay y asimilar
+// el concepto de similitud al de proximidad entre puntos de este espacio.
+	// Las medidas de similitud
+	// Intentan establecer como se calcula la distancia que hay entre 2 puntos 
+	// en un espacio n-dimensional.
+
+// m atributos para todas las observaciones
+// Oi = <Oi1, ... , Oim>
+
 	function onLoadPage(){
 		qstore = new quantum(state);
 

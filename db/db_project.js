@@ -1,4 +1,4 @@
-var app = require('../app');
+var db = require('../db');
 var error = require('../error');
 
 
@@ -7,7 +7,7 @@ const TAG_add_project = "add_project";
 function add_project(req, res){
     var conn = null;
     if(req.body.name!=null && req.body.name.length>0)
-        app.dbConnect(TAG_add_project, res, onGetConnection);
+        db.connect(TAG_add_project, res, onGetConnection);
     else
         res.json({error: null, type: error.ERROR_REQ_MISSING_A_PARAMETER, func: TAG_add_project});
 
@@ -33,7 +33,7 @@ const SQL_SELECT_PROJECTS = "select p.id id_project, p.name project_name, p_lang
 const TAG_get_projects = "get_projects";
 function get_projects(req, res){
     var conn = null;
-    app.dbConnect(TAG_get_projects, res, onGetConnection);
+    db.connect(TAG_get_projects, res, onGetConnection);
     function onGetConnection(err, connection){
         if(err)
             res.json({error: err, type: error.ERROR_MYSQL_CONNECTION, func: TAG_get_projects+"/onGetConnection"});
@@ -56,7 +56,7 @@ const SQL_UPDATE_PROJECT = "update project set name=? where id=?";
 const TAG_set_project = "set_project";
 function set_project(req, res){
     var conn = null;
-    app.dbConnect(TAG_set_project, res, onGetConnection);
+    db.connect(TAG_set_project, res, onGetConnection);
     function onGetConnection(err, connection){
         if(err)
             res.json({error: err, type: error.ERROR_MYSQL_CONNECTION, func: TAG_set_project+"/onGetConnection"});

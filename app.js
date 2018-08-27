@@ -3,12 +3,8 @@ var express = require('express')
   , path = require('path')
   , bodyParser = require('body-parser');
 var app = express();
-require('./routes')(app);
 var db = require('./db');
 var fs = require('fs');
-var error = require('./error');
-var mysql = require('mysql');
-var pug = require('pug');
 
 app.use(express.favicon());
 app.use(express.logger('dev'));
@@ -18,8 +14,10 @@ app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'pug');
-app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+require('./routes')(app);
 
 app.use(function(err, req, res, next) {
 	if(err){
@@ -34,12 +32,11 @@ app.use(function(req, res, next) {
   next();
 });
 
-if ('development' == app.get('env')) {
+if ('development' == app.get('env')) 
   app.use(express.errorHandler());
-}
 
 fs.readFile(__dirname + "/bestcms.conf", 'utf8', function(err, contents) {
-	initServer(JSON.parse(contents));
+	initServer(app.config = JSON.parse(contents));
 });
 
 function initServer(config){
